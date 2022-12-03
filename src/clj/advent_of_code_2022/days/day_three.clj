@@ -10,10 +10,14 @@
    "CrZsJsPPZsGzwwsLwLmpwMDw"])
 
 (def supply-value
-  (map-invert (into {} (map-indexed
-                        #(vector (inc %1) (str %2))
-                        (flatten (cons (map char (range (int \a) (inc (int \z))))
-                                       (map char (range (int \A) (inc (int \Z))))))))))
+  (map-invert  ;; {1 "a", 2 "b"} to {"a" 1, "b" 2}
+   (into {}  ;; ([1 "a"] [2 "b"]) to {1 "a", 2 "b"}
+         (map-indexed  ;; create an indexed map
+          #(vector (inc %1) (str %2))  ;; [1 "a"] etc
+          (flatten  ;; ((list) list) to (list)
+           (cons
+            (map char (range (int \a) (inc (int \z))))  ;; map character range a-z
+            (map char (range (int \A) (inc (int \Z))))))))))  ;; map character range A-Z
 
 (defn compare-two-lists
   "Compares two lists and returns the distinct

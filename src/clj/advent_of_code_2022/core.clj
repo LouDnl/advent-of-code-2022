@@ -76,7 +76,9 @@
     (println "Sum of all priorities:" (reduce + prio-values))))
 
 (defn -main
-  "I run all days if no argument is supplied"
+  "I run all days if no argument is supplied
+
+   Useage: (-main) or (-main 'day-one-part-one)"
   [& args]
   (let [all-functions (reverse (remove #(= (symbol "-main") %) (keys (ns-publics 'advent-of-code-2022.core))))]
     (if (empty? args)
