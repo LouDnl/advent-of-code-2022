@@ -2,6 +2,7 @@
   (:require [advent-of-code-2022.days.day-one :as dayone]
             [advent-of-code-2022.days.day-two :as daytwo]
             [advent-of-code-2022.days.day-three :as daythree]
+            [advent-of-code-2022.days.day-four :as dayfour]
             [clojure.java.io :as io])
   (:gen-class))
 
@@ -31,6 +32,8 @@
 (defn day-one-part-two
   "209691"
   []
+  (when (empty? @dayone/dayone-atom)
+    (day-one-part-one))
   (let [top-first  (reduce max @dayone/dayone-atom)
         top-second (reduce max (remove #{top-first} @dayone/dayone-atom))
         top-third  (reduce max (remove #{top-first top-second} @dayone/dayone-atom))
@@ -75,20 +78,36 @@
     (println "Total elve groups:" (count groupedelves))
     (println "Sum of all priorities:" (reduce + prio-values))))
 
-(defn -main
-  "I run all days if no argument is supplied
+(defn day-four-part-one
+  "431"
+  []
+  (println "Total overlapping groups:" (dayfour/count-overlapping-sections dayfour/input)))
 
-   Useage: (-main) or (-main 'day-one-part-one)"
+(defn day-four-part-two
+  "823"
+  []
+  (println "Total intersecting groups:" (dayfour/count-intersecting-sections dayfour/input)))
+
+(defn -main
+  "I run all days in random order if no argument is supplied
+
+   Usage:
+   * repl: (-main), (-main 'day-one-part-one) or (-main 'day-one-part-one 'day-one-part-two)
+   * cli:  lein main, lein main day-one-part-one or lein main day-one-part-one day-one-part-two"
   [& args]
-  (let [all-functions (reverse (remove #(= (symbol "-main") %) (keys (ns-publics 'advent-of-code-2022.core))))]
+  (let [non-functions #{#'advent-of-code-2022.core/adventreader #'advent-of-code-2022.core/-main}
+        function-map  (ns-publics 'advent-of-code-2022.core)
+        all-functions (reverse (remove non-functions (set (vals function-map))))]
     (if (empty? args)
       (loop [[f & funcs] all-functions]
-        (let [func (name f)]
-          (println (format "Starting function: %s" func))
-          (apply (resolve f) nil))
+        (println (format "Starting function: %s" (-> f meta :name)))
+        (f)
+        (println)
         (when funcs (recur funcs)))
       (let [funcs args]
-        (for [f funcs
-              :let [f (if (string? f) f (str f))]]
-          (do (println (format "Starting function: %s" f))
-              (apply @(resolve (symbol f)) nil)))))))
+        (doall
+         (for [f funcs
+               :let [fun (get function-map (symbol f))]]
+           (do (println (format "Starting function: %s" f))
+               (fun)
+               (println))))))))

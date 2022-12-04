@@ -54,7 +54,7 @@
                 [(first round) (get playstoname myplay)])))))))
 
 (defn play
-  [rounds]
+  [rounds & {:keys [print-play] :or {print-play nil}}]
   (let [rounds     (if (= (count (first rounds)) 1)
                      (partition 2 rounds)
                      (if (> (count (first rounds)) 1)
@@ -74,10 +74,11 @@
                  playpoints  (get scoring me)
                  roundpoints (get scoring game)]]
        (do
-         (println "My opponent plays:" opponent)
-         (println "I play:" me)
-         (println "Outcome:" game)
-         (println "Play score:" playpoints "Round score:" roundpoints)
-         (println "Total score this round:" (+ playpoints roundpoints))
+         (when (= print-play true)
+           (println "My opponent plays:" opponent)
+           (println "I play:" me)
+           (println "Outcome:" game)
+           (println "Play score:" playpoints "Round score:" roundpoints)
+           (println "Total score this round:" (+ playpoints roundpoints)))
          (swap! totalscore + playpoints roundpoints))))
     (println "I scored" @totalscore "in total!")))
