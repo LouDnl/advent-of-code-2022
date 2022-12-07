@@ -1,7 +1,6 @@
 (ns advent-of-code-2022.days.day-four
   (:require [clojure.data :refer [diff]]
             [clojure.java.io :as io]
-            [clojure.set :refer [intersection]]
             [clojure.string :as string]))
 
 (def testinput

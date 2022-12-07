@@ -3,6 +3,7 @@
             [advent-of-code-2022.days.day-two :as daytwo]
             [advent-of-code-2022.days.day-three :as daythree]
             [advent-of-code-2022.days.day-four :as dayfour]
+            [advent-of-code-2022.days.day-five :as dayfive]
             [clojure.java.io :as io])
   (:gen-class))
 
@@ -87,6 +88,16 @@
   "823"
   []
   (println "Total intersecting groups:" (dayfour/count-intersecting-sections dayfour/input)))
+
+(defn day-five-part-one
+  "GRTSWNJHH"
+  []
+  (println "Top boxes after rearranging using the Cratemover 9000:" (dayfive/cratemover-9000 (dayfive/read-input dayfive/input))))
+
+(defn day-five-part-two
+  "QLFQDBBHM"
+  []
+  (println "Top boxes after rearranging using the Cratemover 9001:" (dayfive/cratemover-9001 (dayfive/read-input dayfive/input))))
 
 (defn -main
   "I run all days in random order if no argument is supplied
