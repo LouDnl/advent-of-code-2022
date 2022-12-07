@@ -4,6 +4,7 @@
             [advent-of-code-2022.days.day-three :as daythree]
             [advent-of-code-2022.days.day-four :as dayfour]
             [advent-of-code-2022.days.day-five :as dayfive]
+            [advent-of-code-2022.days.day-six :as daysix]
             [clojure.java.io :as io])
   (:gen-class))
 
@@ -98,6 +99,18 @@
   "QLFQDBBHM"
   []
   (println "Top boxes after rearranging using the Cratemover 9001:" (dayfive/cratemover-9001 (dayfive/read-input dayfive/input))))
+
+(defn day-six-part-one
+  "1235"
+  []
+  (println "Reading data transmission.")
+  (apply println (daysix/start-of-packet-finder daysix/input)))
+
+(defn day-six-part-two
+  "3051"
+  []
+  (println "Reading data transmission.")
+  (apply println (daysix/start-of-message-finder daysix/input)))
 
 (defn -main
   "I run all days in random order if no argument is supplied
