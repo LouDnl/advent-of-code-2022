@@ -5,6 +5,7 @@
             [advent-of-code-2022.days.day-four :as dayfour]
             [advent-of-code-2022.days.day-five :as dayfive]
             [advent-of-code-2022.days.day-six :as daysix]
+            [advent-of-code-2022.days.day-seven :as dayseven]
             [clojure.java.io :as io])
   (:gen-class))
 
@@ -111,6 +112,18 @@
   []
   (println "Reading data transmission.")
   (apply println (daysix/start-of-message-finder daysix/input)))
+
+(defn day-seven-part-one
+  "1350966"
+  []
+  (println "Reading command input")
+  (println "Total folder size:" (dayseven/command-walker dayseven/day-seven-input)))
+
+(defn day-seven-part-two
+  "1350966"
+  []
+  (println "Reading command input")
+  (println "Smallest folder size marked for deletion:" (dayseven/mark-for-deletion dayseven/day-seven-input)))
 
 (defn -main
   "I run all days in random order if no argument is supplied
